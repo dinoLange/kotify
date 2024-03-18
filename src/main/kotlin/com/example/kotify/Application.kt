@@ -16,8 +16,6 @@ fun main() {
 }
 
 fun Application.module() {
-    configureStaticRoutes()
     configureSerialization()
-    configureSecurity()
     configureRouting()
 }

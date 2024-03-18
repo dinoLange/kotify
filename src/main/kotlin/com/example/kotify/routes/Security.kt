@@ -12,7 +12,7 @@ import io.ktor.server.sessions.*
 
 fun Application.configureSecurity() {
     install(Sessions) {
-        cookie<UserSession>("user_session")
+        cookie<UserSession>("user_session", SessionStorageMemory())
     }
 
     val redirects = mutableMapOf<String, String>()
@@ -46,7 +46,7 @@ fun Application.configureSecurity() {
                         // redirects home if the url is not found before authorization
                         currentPrincipal?.let { principal ->
                             principal.state?.let { state ->
-                                call.sessions.set(UserSession(state, principal.accessToken))
+                                call.sessions.set(UserSession(state, principal.accessToken, ""))
                                 redirects[state]?.let { redirect ->
                                     call.respondRedirect(redirect)
                                     return@get
@@ -59,4 +59,4 @@ fun Application.configureSecurity() {
     }
 }
 
-data class UserSession(val state: String, val accessToken: String)
+data class UserSession(val state: String, val accessToken: String, var deviceId: String)
