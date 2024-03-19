@@ -1,10 +1,9 @@
 package com.example.kotify.routes.pages
 
-import com.example.kotify.routes.UserSession
+import com.example.kotify.security.UserSession
 import io.ktor.server.application.*
 import io.ktor.server.html.*
 import io.ktor.server.routing.*
-import io.ktor.server.routing.head
 import io.ktor.server.sessions.*
 import kotlinx.html.*
 
@@ -35,8 +34,9 @@ fun Application.configureMainPage() {
             val session = call.sessions.get<UserSession>()
             call.respondHtml {
                 head {
-                    script {
-                        src = "https://cdn.tailwindcss.com"
+                    link {
+                        href = "http://localhost:8888/static/css/output.css"
+                        rel = "stylesheet"
                     }
                     script {
                         src = "https://unpkg.com/htmx.org@1.9.10"
@@ -46,6 +46,21 @@ fun Application.configureMainPage() {
                     }
                     script {
                         src = "http://localhost:8888/static/js/player.js"
+                    }
+                    script {
+                        unsafe {
+                            + """
+                            tailwind.config = {
+                              theme: {
+                                extend: {
+                                  colors: {
+                                    clifford: '#da373d',
+                                  }
+                                }
+                              }
+                            }
+                            """.trimIndent()
+                        }
                     }
                 }
                 body("overflow-hidden bg-neutral-700") {

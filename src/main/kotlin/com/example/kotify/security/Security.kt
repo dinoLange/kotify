@@ -1,4 +1,4 @@
-package com.example.kotify.routes
+package com.example.kotify.security
 
 import io.github.cdimascio.dotenv.Dotenv
 import io.ktor.client.*

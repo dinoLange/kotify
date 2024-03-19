@@ -1,9 +1,7 @@
 package com.example.kotify
 
-import com.example.kotify.plugins.configureSerialization
 import com.example.kotify.routes.configureRouting
-import com.example.kotify.routes.configureSecurity
-import com.example.kotify.routes.configureStaticRoutes
+import com.example.kotify.security.configureSecurity
 import io.github.cdimascio.dotenv.Dotenv
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -16,6 +14,6 @@ fun main() {
 }
 
 fun Application.module() {
-    configureSerialization()
+    configureSecurity()
     configureRouting()
 }

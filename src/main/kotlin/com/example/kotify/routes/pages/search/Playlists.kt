@@ -1,4 +1,4 @@
-package com.example.kotify.routes.spotify.search
+package com.example.kotify.routes.pages.search
 
 import com.example.kotify.spotify.api.search.searchForUsersPlaylists
 import io.ktor.server.application.*
@@ -26,8 +26,10 @@ fun Application.playlists() {
                                         src = playlist.images[0].url ?: ""
                                         alt = "Trulli"
                                     }
+                                    div {
+                                        + (playlist.name ?: "")
+                                    }
                                 }
-                                div { playlist.name ?: ""}
                             }
                         }
                     }

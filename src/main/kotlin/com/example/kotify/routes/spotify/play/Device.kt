@@ -1,6 +1,6 @@
 package com.example.kotify.routes.spotify.play
 
-import com.example.kotify.routes.UserSession
+import com.example.kotify.security.UserSession
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -12,8 +12,7 @@ fun Application.setDevice() {
         get ("/setDevice"){
             val deviceId = call.request.queryParameters["id"] ?: "" // TODO: handle
             val session = this.context.sessions.get<UserSession>()
-            session!!.deviceId = deviceId
-            call.sessions.set(session)
+            call.sessions.set(session?.copy(deviceId=deviceId))
             call.respond(HttpStatusCode.OK)
         }
     }
